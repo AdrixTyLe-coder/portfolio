@@ -11,6 +11,8 @@
     <meta name="theme-color" content="#000000">
     <title>Adrian Santos | Portfolio</title>
 
+    <link rel="icon" type="image/png" href="logo.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -18,7 +20,7 @@
             theme: {
                 extend: {
                     colors: {
-                        'accent': '#00DF81',
+                        'accent': '#00DF81',     // Verde personalizado
                     }
                 }
             }
@@ -30,21 +32,45 @@
 
 <body class="bg-black text-zinc-100 selection:bg-accent selection:text-black antialiased">
 
+    <!-- BARRA DE NAVEGACIÓN CORREGIDA CON LOGO Y SÁNDWICH -->
     <nav class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-            <a href="#home"
-                class="text-[11px] sm:text-sm font-medium tracking-widest uppercase hover:text-accent transition-colors font-mono whitespace-nowrap">
-                // Adrian Santos Camiña
+            <!-- 📸 LOGO INTEGRADO AQUÍ -->
+            <a href="#home" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+                <img src="logo.png" alt="AS Logo" class="h-7 w-auto object-contain">
+                <span
+                    class="text-[11px] sm:text-sm font-medium tracking-widest uppercase hover:text-accent transition-colors font-mono hidden xs:inline-block">
+                    // Adrian Santos Camiña
+                </span>
             </a>
+
+            <!-- Menú de Escritorio (Se oculta en móvil: hidden md:flex) -->
             <div
-                class="flex items-center space-x-3 sm:space-x-6 md:space-x-8 text-xs sm:text-sm tracking-wide text-zinc-400">
+                class="hidden md:flex items-center space-x-6 md:space-x-8 text-xs sm:text-sm tracking-wide text-zinc-400">
                 <a href="#about" class="nav-link hover:text-white py-2">Sobre mí</a>
                 <a href="#projects" class="nav-link hover:text-white py-2">Proyectos</a>
                 <a href="#skills" class="nav-link hover:text-white py-2">Tecnologías</a>
                 <a href="#contact"
-                    class="nav-link text-white border border-white/10 hover:border-accent hover:bg-accent hover:text-black px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-full transition-all duration-500 font-mono text-[10px] sm:text-xs whitespace-nowrap">//
+                    class="nav-link text-white border border-white/10 hover:border-accent hover:bg-accent hover:text-black px-4 py-1.5 rounded-full transition-all duration-500 font-mono text-xs">//
                     contacto</a>
             </div>
+
+            <!-- 🍔 BOTÓN SÁNDWICH MÍNIMALISTA (Visible solo en móvil: md:hidden) -->
+            <button id="menu-btn"
+                class="md:hidden text-zinc-400 hover:text-accent focus:outline-none py-2 font-mono text-xs tracking-widest transition-colors">
+                // MENÚ
+            </button>
+        </div>
+
+        <!-- 📱 MENÚ DESPLEGABLE MÓVIL (Oculto por defecto con 'hidden') -->
+        <div id="mobile-menu"
+            class="hidden absolute top-20 left-0 w-full bg-black/95 border-b border-white/5 flex-col items-center py-6 space-y-5 text-xs tracking-widest text-zinc-400 font-mono md:hidden">
+            <a href="#about" class="mobile-link hover:text-white py-1 w-full text-center">Sobre mí</a>
+            <a href="#projects" class="mobile-link hover:text-white py-1 w-full text-center">Proyectos</a>
+            <a href="#skills" class="mobile-link hover:text-white py-1 w-full text-center">Tecnologías</a>
+            <a href="#contact"
+                class="mobile-link text-accent border border-accent/20 hover:bg-accent hover:text-black px-6 py-2 rounded-full transition-all duration-300">//
+                contacto</a>
         </div>
     </nav>
 
@@ -77,7 +103,7 @@
             <div class="md:col-span-2 space-y-6 text-zinc-400 text-base sm:text-lg font-light leading-relaxed">
                 <p>
                     Actualmente he finalizado mi primer año en <strong class="text-white font-medium">DAM</strong>,
-                    construyendo una base sólida en lógica, programación orientada a objetos y bases de datos, sin
+                    construyendo una base sólida en lógica, programación orientada a objetos y bases de datos. Sin
                     embargo, mi verdadero factor diferencial radica en mi pasión por la <strong
                         class="text-accent font-medium">Inteligencia Artificial</strong> y su aplicación práctica en el
                     desarrollo.
@@ -246,6 +272,34 @@
         </footer>
     </section>
 
+    <!-- LÓGICA DE CONTROL PARA EL MENÚ SÁNDWICH MÓVIL -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                menuBtn.textContent = '// CERRAR';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                menuBtn.textContent = '// MENÚ';
+            }
+        });
+
+        // Cierra el menú automáticamente al pulsar sobre cualquier sección
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                menuBtn.textContent = '// MENÚ';
+            });
+        });
+    </script>
 </body>
 
 </html>
